@@ -11,6 +11,8 @@ plugins {
 
     // Apply the application plugin to add support for building a CLI application in Java.
     application
+
+    id("com.apollographql.apollo3") version "3.8.2"
 }
 
 repositories {
@@ -29,6 +31,7 @@ dependencies {
 
     // This dependency is used by the application.
     implementation(libs.guava)
+    implementation("com.apollographql.apollo3:apollo-runtime:3.8.2")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -46,4 +49,10 @@ application {
 tasks.named<Test>("test") {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+}
+
+apollo {
+    service("service") {
+        packageName.set("de.inf_schauer.apollo_kotlin.apollo_example.gql")
+    }
 }
