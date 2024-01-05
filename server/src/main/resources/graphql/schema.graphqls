@@ -3,13 +3,13 @@ type Query {
 }
 
 type Product {
-    id: ID
+    id: ID!
     name: String
     product_no: Int
     manufacturer: Manufacturer
 }
 
 type Manufacturer {
-    id: ID
+    id: ID!
     name: String
 }
