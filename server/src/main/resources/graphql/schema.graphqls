@@ -1,0 +1,15 @@
+type Query {
+    productById(id: ID): Product
+}
+
+type Product {
+    id: ID
+    name: String
+    product_no: Int
+    manufacturer: Manufacturer
+}
+
+type Manufacturer {
+    id: ID
+    name: String
+}

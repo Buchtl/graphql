@@ -1,10 +1,10 @@
-package com.graphql.grapnel;
+package com.graphql.graphql;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class GrapnelApplicationTests {
+class GraphqlApplicationTests {
 
 	@Test
 	void contextLoads() {

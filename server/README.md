@@ -1,1 +1,17 @@
 # graphql
+
+
+## Query example
+```json
+query details {
+  productById(id: "4cfe25a2-529e-432e-be08-87ee9094774a") {
+    id
+    name
+    product_no
+    manufacturer {
+      id
+      name
+    }
+  }
+}
+```

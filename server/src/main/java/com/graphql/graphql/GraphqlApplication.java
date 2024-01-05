@@ -1,13 +1,13 @@
-package com.graphql.grapnel;
+package com.graphql.graphql;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class GrapnelApplication {
+public class GraphqlApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(GrapnelApplication.class, args);
+		SpringApplication.run(GraphqlApplication.class, args);
 	}
 
 }
