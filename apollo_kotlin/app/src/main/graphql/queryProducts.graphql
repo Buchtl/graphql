@@ -1,0 +1,11 @@
+query details ($id: ID!){
+    productById(id: $id) {
+        id
+        name
+        product_no
+        manufacturer {
+            id
+            name
+        }
+    }
+}
