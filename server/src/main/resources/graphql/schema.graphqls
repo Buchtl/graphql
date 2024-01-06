@@ -2,6 +2,10 @@ type Query {
     productById(id: ID): Product
 }
 
+type Mutation {
+    createProduct(name: String, product_no: String): Product
+}
+
 type Product {
     id: ID!
     name: String

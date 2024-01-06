@@ -19,6 +19,10 @@ type Manufacturer {
   name: String
 }
 
+type Mutation {
+  createProduct(name: String, product_no: String): Product
+}
+
 type Product {
   id: ID!
 
@@ -324,4 +328,5 @@ directive @oneOf on INPUT_OBJECT
 
 schema {
   query: Query
+  mutation: Mutation
 }

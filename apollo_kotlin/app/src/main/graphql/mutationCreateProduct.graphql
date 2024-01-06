@@ -1,0 +1,11 @@
+mutation create ($name: String, $product_no: String) {
+    createProduct(name: $name, product_no: $product_no) {
+        id
+        name
+        product_no
+        manufacturer {
+            id
+            name
+        }
+    }
+}
