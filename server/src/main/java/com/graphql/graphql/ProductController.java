@@ -10,9 +10,15 @@ import java.util.UUID;
 @Controller
 public class ProductController {
 
+    final ProductService productService;
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
     @QueryMapping
     public Product productById(@Argument UUID id) {
-        return Product.getProductById(id);
+        return productService.getProductById(id);
     }
 
     @SchemaMapping
