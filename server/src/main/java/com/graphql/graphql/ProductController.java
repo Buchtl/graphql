@@ -1,6 +1,7 @@
 package com.graphql.graphql;
 
 import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,11 @@ public class ProductController {
     @QueryMapping
     public Product productById(@Argument UUID id) {
         return productService.getProductById(id);
+    }
+
+    @MutationMapping
+    public Product createProduct(@Argument String name, @Argument String product_no) {
+        return productService.createProduct(name, product_no);
     }
 
     @SchemaMapping

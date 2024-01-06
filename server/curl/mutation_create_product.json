@@ -1,0 +1,3 @@
+{
+  "query": "mutation createProduct {createProduct(name: \"BR666\", product_no: \"123456\"){ id name product_no manufacturer{ id name }}}"
+}
