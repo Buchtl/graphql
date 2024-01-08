@@ -18,24 +18,26 @@ public class ProductService {
     public ProductService() {
         System.out.println("DataService constructor");
 
-        products.addAll(Arrays.asList(new Product(ID_1, "BR 103", 3054, Manufacturer.ID_MAERKLIN),
-                new Product(ID_2, "V 200", 3021, Manufacturer.ID_MAERKLIN),
-                new Product(ID_3, "V 100", 3072, Manufacturer.ID_MAERKLIN),
-                new Product(ID_4, "BR 211", 52321, Manufacturer.ID_PIKO)));
+
+
+        products.addAll(Arrays.asList(new Product(ID_1, "BR 103", List.of(3054, 1003054), Manufacturer.ID_MAERKLIN),
+                new Product(ID_2, "V 200", List.of(3021 , 100321), Manufacturer.ID_MAERKLIN),
+                new Product(ID_3, "V 100", List.of(3072 , 100372), Manufacturer.ID_MAERKLIN),
+                new Product(ID_4, "BR 211", List.of(52321 , 10052321), Manufacturer.ID_PIKO)));
     }
 
     public Product getProductById(UUID id) {
         return this.products.stream().filter(p -> p.id().equals(id)).findFirst().orElseThrow();
     }
 
-    public Product createProduct(String name, String product_no) {
+    public Product createProduct(String name, List<Integer> product_no) {
         UUID id = UUID.randomUUID();
-        Product product = new Product(id, name, Integer.parseInt(product_no), Manufacturer.ID_MAERKLIN);
+        Product product = new Product(id, name, product_no, Manufacturer.ID_MAERKLIN);
         this.products.add(product);
         return product;
     }
 
     public void addProductById(UUID id) {
-        this.products.add(new Product(id, "", 0, null));
+        this.products.add(new Product(id, "", List.of(0), null));
     }
 }

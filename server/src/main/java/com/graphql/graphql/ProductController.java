@@ -6,6 +6,7 @@ import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
 
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -23,7 +24,7 @@ public class ProductController {
     }
 
     @MutationMapping
-    public Product createProduct(@Argument String name, @Argument String product_no) {
+    public Product createProduct(@Argument String name, @Argument List<Integer> product_no) {
         return productService.createProduct(name, product_no);
     }
 

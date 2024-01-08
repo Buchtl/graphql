@@ -37,28 +37,29 @@ public class ApiFeatureTests {
 
     @Test
     public void testProductByIdQuery() throws JSONException {
-        String expected = "4cfe25a2-529e-432e-be08-87ee9094774a";
-        String query = "{\"query\": \"query details {productById(id: \\\"" + expected + "\\\") { id name product_no manufacturer { id name } } }\"}";
+        String expectedId = "4cfe25a2-529e-432e-be08-87ee9094774a";
+        String query = "{\"query\": \"query details {productById(id: \\\"" + expectedId + "\\\") { id name product_no manufacturer { id name } } }\"}";
         ResponseEntity<String> responseEntity = postForEntity(query);
 
-        JSONObject jsonResponse = new JSONObject(responseEntity.getBody());
+        JSONObject jsonProduct = new JSONObject(responseEntity.getBody()).getJSONObject("data")
+                .getJSONObject("productById");
 
-        String actual = jsonResponse.getJSONObject("data").getJSONObject("productById").getString("id");
-
-        assertEquals(expected, actual);
+        assertEquals(expectedId, jsonProduct.getString("id"));
+        assertEquals(3054, jsonProduct.getJSONArray("product_no").get(0));
+        assertEquals(1003054, jsonProduct.getJSONArray("product_no").get(1));
     }
 
     @Test
     public void testCreateProductMutation() throws JSONException {
         String expected = "BR666";
-        String query = "{\"query\": \"mutation createProduct {createProduct(name: \\\"" + expected + "\\\", product_no: \\\"123456\\\") { id name product_no manufacturer { id name } } }\"}";
+        String query = "{\"query\": \"mutation createProduct {createProduct(name: \\\"" + expected + "\\\", product_no: [123456, 789]) { id name product_no manufacturer { id name } } }\"}";
         ResponseEntity<String> responseEntity = postForEntity(query);
 
-        JSONObject jsonResponse = new JSONObject(responseEntity.getBody());
+        JSONObject product = new JSONObject(responseEntity.getBody()).getJSONObject("data").getJSONObject("createProduct");
 
-        String actual = jsonResponse.getJSONObject("data").getJSONObject("createProduct").getString("name");
-
-        assertEquals(expected, actual);
+        assertEquals(expected, product.getString("name"));
+        assertEquals(123456, product.getJSONArray("product_no").get(0));
+        assertEquals(789, product.getJSONArray("product_no").get(1));
     }
 }
 

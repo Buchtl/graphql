@@ -24,19 +24,17 @@ class Product {
                     val response = async { apolloClient.query(detailsQuery).execute() }.await()
 
                     if (response.hasErrors()) {
-                        // Handle errors
                         response.errors?.forEach { error ->
                             println("GraphQL Error: ${error.message}")
                         }
                     } else {
-                        // Handle successful response
                         println(response.data?.productById)
                     }
                 }
             }
         }
 
-        fun create(name: String, productNo: String) {
+        fun create(name: String, productNo: List<Int?>) {
             val apolloClient = createApolloClient()
             val createMutation = CreateMutation(Optional.present(name), Optional.present(productNo))
 
@@ -44,12 +42,10 @@ class Product {
                 apolloClient.use { apolloClient ->
                     val response = async { apolloClient.mutation(createMutation).execute() }.await()
                     if (response.hasErrors()) {
-                        // Handle errors
                         response.errors?.forEach { error ->
                             println("GraphQL Error: ${error.message}")
                         }
                     } else {
-                        // Handle successful response
                         println(response.data?.createProduct)
                     }
                 }

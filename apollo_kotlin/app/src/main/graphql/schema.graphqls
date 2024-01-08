@@ -20,7 +20,7 @@ type Manufacturer {
 }
 
 type Mutation {
-  createProduct(name: String, product_no: String): Product
+  createProduct(name: String, product_no: [Int]): Product
 }
 
 type Product {
@@ -28,7 +28,7 @@ type Product {
 
   name: String
 
-  product_no: Int
+  product_no: [Int]
 
   manufacturer: Manufacturer
 }
