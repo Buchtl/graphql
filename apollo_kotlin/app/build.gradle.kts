@@ -32,6 +32,7 @@ dependencies {
     // This dependency is used by the application.
     implementation(libs.guava)
     implementation("com.apollographql.apollo3:apollo-runtime:3.8.2")
+    implementation("com.apollographql.apollo:apollo-coroutines-support:2.5.14")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
