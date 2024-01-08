@@ -42,10 +42,6 @@ Built-in String
 """
 scalar String
 
-type Subscription {
-  product: Product
-}
-
 type __Directive {
   """
   The __Directive type represents a Directive that a server supports.
@@ -333,5 +329,4 @@ directive @oneOf on INPUT_OBJECT
 schema {
   query: Query
   mutation: Mutation
-  subscription: Subscription
 }
