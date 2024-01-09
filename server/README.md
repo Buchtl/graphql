@@ -3,7 +3,7 @@
 
 ## Query example
 * Execute via http://localhost:8080/graphiql
-```
+``` json
 query details {
   productById(id: "4cfe25a2-529e-432e-be08-87ee9094774a") {
     id
@@ -16,4 +16,3 @@ query details {
   }
 }
 ```
-
