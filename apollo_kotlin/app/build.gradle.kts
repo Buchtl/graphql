@@ -28,6 +28,7 @@ dependencies {
     testImplementation(libs.junit.jupiter.engine)
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation("com.apollographql.apollo3:apollo-testing-support:3.8.2")
 
     // This dependency is used by the application.
     implementation(libs.guava)

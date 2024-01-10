@@ -9,7 +9,7 @@ import kotlinx.coroutines.runBlocking
 import java.util.*
 
 
-class Product {
+class ProductServices {
     companion object {
 
         private fun createApolloClient(): ApolloClient =

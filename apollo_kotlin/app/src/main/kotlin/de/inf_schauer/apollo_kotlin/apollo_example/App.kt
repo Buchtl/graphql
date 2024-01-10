@@ -7,6 +7,6 @@ import java.util.*
 
 fun main() {
     val id = UUID.fromString("4cfe25a2-529e-432e-be08-87ee9094774a")
-    Product.details(id)
-    Product.create("Test", listOf(111,222,333))
+    ProductServices.details(id)
+    ProductServices.create("Test", listOf(111,222,333))
 }
