@@ -24,11 +24,9 @@ class Product {
                     val response = async { apolloClient.query(detailsQuery).execute() }.await()
 
                     if (response.hasErrors()) {
-                        response.errors?.forEach { error ->
-                            println("GraphQL Error: ${error.message}")
-                        }
+                        return@use response.errors?.forEach { error -> println("GraphQL Error: ${error.message}") }
                     } else {
-                        println(response.data?.productById)
+                        return@use println(response.data?.productById)
                     }
                 }
             }
@@ -42,11 +40,9 @@ class Product {
                 apolloClient.use { apolloClient ->
                     val response = async { apolloClient.mutation(createMutation).execute() }.await()
                     if (response.hasErrors()) {
-                        response.errors?.forEach { error ->
-                            println("GraphQL Error: ${error.message}")
-                        }
+                        return@use response.errors?.forEach { error -> println("GraphQL Error: ${error.message}") }
                     } else {
-                        println(response.data?.createProduct)
+                        return@use println(response.data?.createProduct)
                     }
                 }
             }
