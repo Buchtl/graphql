@@ -6,6 +6,16 @@ type Mutation {
     createProduct(name: String, product_no: [Int]): Product
 }
 
+type Subscription {
+    productAdded: Product
+}
+
+subscription {
+    productAdded {
+        id
+    }
+}
+
 type Product {
     id: ID!
     name: String
