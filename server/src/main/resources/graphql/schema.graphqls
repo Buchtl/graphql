@@ -10,12 +10,6 @@ type Subscription {
     productAdded: Product
 }
 
-subscription {
-    productAdded {
-        id
-    }
-}
-
 type Product {
     id: ID!
     name: String
