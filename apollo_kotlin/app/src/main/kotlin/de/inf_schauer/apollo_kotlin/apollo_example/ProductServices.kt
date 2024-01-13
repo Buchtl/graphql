@@ -15,35 +15,27 @@ class ProductServices {
         private fun createApolloClient(): ApolloClient =
             ApolloClient.Builder().serverUrl("http://localhost:8080/graphql").build()
 
-        fun details(id: UUID) {
+        fun details(id: UUID): UUID {
             val apolloClient = createApolloClient()
             val detailsQuery = DetailsQuery(id.toString())
 
-            runBlocking {
+            return runBlocking {
                 apolloClient.use { apolloClient ->
                     val response = async { apolloClient.query(detailsQuery).execute() }.await()
-
-                    if (response.hasErrors()) {
-                        return@use response.errors?.forEach { error -> println("GraphQL Error: ${error.message}") }
-                    } else {
-                        return@use println(response.data?.productById)
-                    }
+                    return@runBlocking UUID.fromString(response.data?.productById?.id)
                 }
             }
         }
 
-        fun create(name: String, productNo: List<Int?>) {
+
+        fun create(name: String, productNo: List<Int?>): UUID {
             val apolloClient = createApolloClient()
             val createMutation = CreateMutation(Optional.present(name), Optional.present(productNo))
 
-            runBlocking {
+            return runBlocking {
                 apolloClient.use { apolloClient ->
                     val response = async { apolloClient.mutation(createMutation).execute() }.await()
-                    if (response.hasErrors()) {
-                        return@use response.errors?.forEach { error -> println("GraphQL Error: ${error.message}") }
-                    } else {
-                        return@use println(response.data?.createProduct)
-                    }
+                    return@runBlocking UUID.fromString(response.data?.createProduct?.id)
                 }
             }
         }
