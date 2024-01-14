@@ -1,5 +1,7 @@
-package com.graphql.graphql;
+package com.graphql.graphql.services;
 
+import com.graphql.graphql.Manufacturer;
+import com.graphql.graphql.Product;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
