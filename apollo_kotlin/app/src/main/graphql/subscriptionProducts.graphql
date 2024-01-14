@@ -1,0 +1,7 @@
+subscription ProductSubscription {
+    productAdded {
+        # Include the fields you want to retrieve in the subscription
+        id
+        # Add more fields as needed
+    }
+}
