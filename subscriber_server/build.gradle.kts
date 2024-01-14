@@ -19,13 +19,14 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("org.springframework.boot:spring-boot-starter-webflux")
-	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-	implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
-	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
-	implementation("org.springframework.boot:spring-boot-starter-websocket")
+	implementation("org.springframework.boot:spring-boot-starter-web:3.2.1")
+	implementation("org.springframework.boot:spring-boot-starter-webflux:3.2.1")
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.0")
+	implementation("io.projectreactor.kotlin:reactor-kotlin-extensions:1.1.2")
+	implementation("org.jetbrains.kotlin:kotlin-reflect:1.5.31")
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.5.2")
+	implementation("org.springframework.boot:spring-boot-starter-websocket:3.2.1")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.projectreactor:reactor-test")
 }

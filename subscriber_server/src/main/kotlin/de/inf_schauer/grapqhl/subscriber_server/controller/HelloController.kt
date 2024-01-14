@@ -1,14 +1,13 @@
 package de.inf_schauer.grapqhl.subscriber_server.controller
 
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.messaging.converter.MappingJackson2MessageConverter
+import org.springframework.messaging.converter.StringMessageConverter
 import org.springframework.messaging.simp.stomp.StompHeaders
 import org.springframework.messaging.simp.stomp.StompSession
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
-import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.socket.client.standard.StandardWebSocketClient
 import org.springframework.web.socket.messaging.WebSocketStompClient
 
@@ -16,11 +15,7 @@ import org.springframework.web.socket.messaging.WebSocketStompClient
 @RestController
 class HelloController {
 
-  @Autowired
-  lateinit var webClientBuilder: WebClient.Builder
-
-  val URL_WEBSOCKET = "ws://localhost:8080/my-websocket"
-
+  val urlWebsocket = "ws://localhost:8080/my-websocket"
 
   @GetMapping("/hello")
   fun hello(): String {
@@ -33,7 +28,8 @@ class HelloController {
     }
 
     override fun handleFrame(headers: StompHeaders, payload: Any?) {
-      println("Received message: $payload")
+      // Handle incoming messages here
+      println("Received payload: $payload")
     }
 
     override fun handleTransportError(session: StompSession, exception: Throwable) {
@@ -43,29 +39,26 @@ class HelloController {
 
   @GetMapping("/subscribe")
   fun subscribe(): String {
-
     val stompClient = WebSocketStompClient(StandardWebSocketClient())
+    stompClient.messageConverter = StringMessageConverter()
+
     val sessionHandler = MyStompSessionHandler()
-    val stompSession = stompClient.connect(URL_WEBSOCKET, sessionHandler)
+    val stompSession = stompClient.connectAsync(urlWebsocket, sessionHandler)
       .get()
 
-    // Subscribe to the "/topic/messages" destination
-    val sub = stompSession.subscribe("/topic/greetings", sessionHandler)
-    println("###################### ${sub.subscriptionId}")
-    stompSession.setAutoReceipt(true)
+    val subscription = stompSession.subscribe("/topic/greetings", sessionHandler)
+    stompSession.send("/app/hello", "World")
 
-    while (true) {
-      Thread.sleep(1000)
-      sub.subscriptionHeaders.let {
-        println("###################### ${it}")
-      }
-    }
+    println("waiting... ${subscription.subscriptionId}")
 
-    return "............"
+    Thread.sleep(10000)
+    subscription.unsubscribe()
+    stompSession.disconnect()
+    return "done"
   }
 
   @GetMapping("/push")
-  fun push() {
+  fun push(): String {
 
     val stompClient = WebSocketStompClient(StandardWebSocketClient())
     stompClient.messageConverter = MappingJackson2MessageConverter()
@@ -76,11 +69,16 @@ class HelloController {
 
     val sessionHandler = MyStompSessionHandler()
 
-    val stompSession = stompClient.connect(URL_WEBSOCKET, sessionHandler)
+    val stompSession = stompClient.connectAsync(urlWebsocket, sessionHandler)
       .get()
-    while (true) {
+
+    for (i in 1..10) {
       Thread.sleep(1000)
-      stompSession.send("/app/hello", "Hello, Spring! ${System.currentTimeMillis()}")
+      val payload = "Hello, Spring! ${System.currentTimeMillis()}"
+      println("Send $payload")
+      stompSession.send("/app/hello", payload)
     }
+    stompSession.disconnect()
+    return "done"
   }
 }
