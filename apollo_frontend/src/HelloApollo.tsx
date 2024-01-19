@@ -1,6 +1,6 @@
 import './App.css';
-import React, { useState, useEffect } from "react";
-import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
+import { useState, useEffect } from "react";
+import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 
 function HelloApollo() {
 
