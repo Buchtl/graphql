@@ -20,7 +20,7 @@ function HelloWorld() {
 
 
   return (
-    <div>
+    <div className="App-header">
         hello react and {value}
     </div>
   );

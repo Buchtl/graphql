@@ -6,14 +6,12 @@ import com.graphql.graphql.ProductPublisher;
 import com.graphql.graphql.services.ProductService;
 import org.springframework.graphql.data.method.annotation.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import reactor.core.publisher.Flux;
 
 import java.util.List;
 import java.util.UUID;
 
 @Controller
-@CrossOrigin(origins = "*")
 public class ProductController {
 
     final ProductService productService;
@@ -22,6 +20,11 @@ public class ProductController {
     public ProductController(ProductService productService, ProductPublisher productPublisher) {
         this.productService = productService;
         this.productPublisher = productPublisher;
+    }
+
+    @QueryMapping
+    public Product helloApollo() {
+        return new Product(UUID.randomUUID(), "Hello Apollo from the Backend!", List.of(1, 2, 3), UUID.randomUUID());
     }
 
     @QueryMapping
