@@ -4,18 +4,27 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import HelloWorld from './HelloWorld';
-import HelloApollo from './HelloApollo';
+import CreateProduct from './CreateProduct';
 import ProductList from './ProductList';
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+const CLIENT = new ApolloClient({
+  uri: 'http://localhost:8080/graphql',
+  cache: new InMemoryCache()
+})
+
 root.render(
   <React.StrictMode>
-    <App />
-    <HelloWorld />
-    <HelloApollo />
-    <ProductList />
+    <ApolloProvider client={CLIENT}>
+      <App />
+      <HelloWorld />
+      <CreateProduct />
+      <ProductList />
+    </ApolloProvider>
   </React.StrictMode>
 );
 

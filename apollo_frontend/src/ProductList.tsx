@@ -10,7 +10,7 @@ interface Product {
 
 function ProductList() {
 
-  const [products, setProducts] = useState<Product[]>([{ id: "initial", name: "value" }])
+  const [products, setProducts] = useState<Product[]>([{ id: "", name: "" }])
 
 
   const client = new ApolloClient({
