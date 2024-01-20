@@ -10,7 +10,7 @@ interface Product {
 
 function ProductList() {
 
-  const [products, setProducts] = useState<Product[]>([{id: "initial", name: "value"}])
+  const [products, setProducts] = useState<Product[]>([{ id: "initial", name: "value" }])
 
 
   const client = new ApolloClient({
@@ -29,13 +29,17 @@ function ProductList() {
                 }
                 `,
     })
-    response.then(r => r.data).then(data => {setProducts(data.allProducts); console.log(data.allProducts);})
+    response.then(r => r.data).then(data => { setProducts(data.allProducts) })
   }, [])
 
 
   return (
     <div className="App-body">
-      hello products and {products[0].name}
+      <h2>Products</h2>
+      <table>
+        <tr><th>ID</th><th>Name</th></tr>
+        {products.map(product => <tr><td>{product.id}</td><td>{product.name}</td></tr>)}
+      </table>
     </div>
   );
 }
