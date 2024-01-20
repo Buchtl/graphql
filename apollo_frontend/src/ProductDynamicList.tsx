@@ -1,6 +1,6 @@
 import './App.css';
 import { useState, useEffect } from "react";
-import { ApolloClient, InMemoryCache, gql,useSubscription } from '@apollo/client';
+import { ApolloClient, InMemoryCache, gql, useSubscription } from '@apollo/client';
 
 
 interface Product {
@@ -19,9 +19,9 @@ const PRODUCT_SUBSCRIPTION = gql`
 
 function ProductDynamicList() {
   const [products, setProducts] = useState<Product[]>([{ id: "", name: "" }])
-  
-  const { data, loading} = useSubscription(PRODUCT_SUBSCRIPTION);
-  
+
+  const { data, loading } = useSubscription(PRODUCT_SUBSCRIPTION);
+
   const client = new ApolloClient({
     uri: 'http://localhost:8080/graphql',
     cache: new InMemoryCache()
@@ -41,18 +41,16 @@ function ProductDynamicList() {
     response.then(r => r.data).then(data => { setProducts(data.allProducts) })
   }, [])
 
-  /*useEffect(() => {
-    let tmp: Product = {id: data.productAdded.name, name: data.productAdded.name}
-    console.log("++++++++++++++++ " + tmp.name)
-  }, [data])*/
+  useEffect(() => {
+    if (data) {
+      setProducts([...products, { id: data.productAdded.id, name: data.productAdded.name }])
+    }
+  }, [data])
 
-
-  //<h2>{!loading && data.productAdded.name}</h2>
   return (
-    <div className="App-body">
-      <h2>Latest</h2>
-      <div>{!loading && data.productAdded.name}</div>
-      <h2>Products</h2>
+    <div className="App-products">
+      <h3>Products</h3>
+      <div>Recently added: {!loading && data.productAdded.name}</div>
       <table>
         <tbody>
           <tr><th>ID</th><th>Name</th></tr>
