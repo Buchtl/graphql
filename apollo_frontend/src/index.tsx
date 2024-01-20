@@ -57,7 +57,6 @@ const client = new ApolloClient({
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
       <HelloWorld />
       <CreateProduct />
       <ProductDynamicList/>
