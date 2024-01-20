@@ -1,5 +1,7 @@
-package com.graphql.graphql;
+package com.graphql.graphql.services;
 
+import com.graphql.graphql.Manufacturer;
+import com.graphql.graphql.Product;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -39,5 +41,9 @@ public class ProductService {
 
     public void addProductById(UUID id) {
         this.products.add(new Product(id, "", List.of(0), null));
+    }
+
+    public List<Product> getAllProducts() {
+        return this.products;
     }
 }

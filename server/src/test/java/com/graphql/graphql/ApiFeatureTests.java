@@ -5,12 +5,15 @@ import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -23,6 +26,11 @@ public class ApiFeatureTests {
     @Autowired
     private TestRestTemplate testRestTemplate;
 
+    @Autowired
+    private WebTestClient webTestClient;
+
+    @MockBean
+    private WebClient.Builder webClientBuilder;
 
     private HttpEntity<String> buildEntity(String query) {
         HttpHeaders headers = new HttpHeaders();
@@ -55,11 +63,22 @@ public class ApiFeatureTests {
         String query = "{\"query\": \"mutation createProduct {createProduct(name: \\\"" + expected + "\\\", product_no: [123456, 789]) { id name product_no manufacturer { id name } } }\"}";
         ResponseEntity<String> responseEntity = postForEntity(query);
 
-        JSONObject product = new JSONObject(responseEntity.getBody()).getJSONObject("data").getJSONObject("createProduct");
+        JSONObject product = new JSONObject(responseEntity.getBody()).getJSONObject("data")
+                .getJSONObject("createProduct");
 
         assertEquals(expected, product.getString("name"));
         assertEquals(123456, product.getJSONArray("product_no").get(0));
         assertEquals(789, product.getJSONArray("product_no").get(1));
+    }
+
+    @Test
+    public void testSubscribeToProductAdded() throws JSONException {
+        String expected = "BR666";
+        String query = "{\"query\": \"subscription {productAdded { id }\"}";
+
+        webTestClient.post().uri("http://localhost:" + port + "/graphql").accept(MediaType.APPLICATION_JSON).exchange()
+                .expectStatus().isOk().expectBody(String.class).isEqualTo("");
+        //ProductService productService = new ProductService(webClientBuilder);
     }
 }
 

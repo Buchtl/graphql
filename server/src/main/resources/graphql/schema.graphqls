@@ -1,9 +1,15 @@
 type Query {
     productById(id: ID): Product
+    allProducts: [Product]
+    helloApollo: Product
 }
 
 type Mutation {
     createProduct(name: String, product_no: [Int]): Product
+}
+
+type Subscription {
+    productAdded: Product
 }
 
 type Product {

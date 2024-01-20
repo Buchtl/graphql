@@ -27,4 +27,9 @@ class ProductServicesTest {
             mockServer.stop()
         }
     }
+
+    @Test
+    fun subscribe() {
+        ProductServices.subscribe()
+    }
 }
