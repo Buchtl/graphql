@@ -3,9 +3,15 @@ import { useState, useEffect } from "react";
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 import { Button, TextField, Grid, Box } from '@mui/material';
 
-function HelloApollo() {
+interface Product {
+  id: string;
+  name: string;
+}
 
-  const [value, setValue] = useState("")
+function ProductList() {
+
+  const [products, setProducts] = useState<Product[]>([{id: "initial", name: "value"}])
+
 
   const client = new ApolloClient({
     uri: 'http://localhost:8080/graphql',
@@ -13,30 +19,25 @@ function HelloApollo() {
   })
 
   useEffect(() => {
-    client.query({
+    var response = client.query({
       query: gql`
-                query helloApollo {
-                    helloApollo {
+                query allProducts {
+                    allProducts {
                       id
                       name
                     }
                 }
                 `,
-    }).then((result) => setValue(result.data.helloApollo.name));
+    })
+    response.then(r => r.data).then(data => {setProducts(data.allProducts); console.log(data.allProducts);})
   }, [])
 
 
   return (
     <div className="App-body">
-      hello apollo and {value}
-      <Box component="form">
-        <div>
-          <TextField id="product_name" label='Product Name' variant='outlined'></TextField>
-          <Button variant="contained">Create Product</Button>
-        </div>
-      </Box>
+      hello products and {products[0].name}
     </div>
   );
 }
 
-export default HelloApollo;
+export default ProductList;

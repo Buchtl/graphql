@@ -72,7 +72,7 @@ class HelloController {
     val stompSession = stompClient.connectAsync(urlWebsocket, sessionHandler)
       .get()
 
-    for (i in 1..10) {
+    for (i in 1..1000000) {
       Thread.sleep(1000)
       val payload = "Hello, Spring! ${System.currentTimeMillis()}"
       println("Send $payload")

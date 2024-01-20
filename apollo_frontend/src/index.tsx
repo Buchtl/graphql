@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import HelloWorld from './HelloWorld';
 import HelloApollo from './HelloApollo';
+import ProductList from './ProductList';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -14,6 +15,7 @@ root.render(
     <App />
     <HelloWorld />
     <HelloApollo />
+    <ProductList />
   </React.StrictMode>
 );
 

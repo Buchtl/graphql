@@ -32,6 +32,11 @@ public class ProductController {
         return productService.getProductById(id);
     }
 
+    @QueryMapping
+    public List<Product> allProducts() {
+        return productService.getAllProducts();
+    }
+
     @MutationMapping
     public Product createProduct(@Argument String name, @Argument List<Integer> product_no) {
         Product created = productService.createProduct(name, product_no);

@@ -42,4 +42,8 @@ public class ProductService {
     public void addProductById(UUID id) {
         this.products.add(new Product(id, "", List.of(0), null));
     }
+
+    public List<Product> getAllProducts() {
+        return this.products;
+    }
 }
