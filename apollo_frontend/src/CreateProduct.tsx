@@ -1,7 +1,7 @@
 import './App.css';
-import { useState, useEffect } from "react";
-import { ApolloClient, InMemoryCache, gql, useMutation } from '@apollo/client';
-import { Button, TextField, Grid, Box, Input } from '@mui/material';
+import { useState, ChangeEvent } from "react";
+import { gql, useMutation } from '@apollo/client';
+import { FormEvent } from 'react';
 
 const ADD_PRODUCT = gql`
   mutation addProduct($name: String) {
@@ -12,6 +12,10 @@ const ADD_PRODUCT = gql`
   }
 `;
 
+interface FormData {
+  name: string;
+}
+
 function CreateProduct() {
 
   const [addProduct, { data, loading, error }] = useMutation(ADD_PRODUCT, {
@@ -20,22 +24,28 @@ function CreateProduct() {
     },
   });
 
+  const [formData, setFormData] = useState<FormData>({name: ''})
 
-  //if (loading) return 'Submitting...';
-  //if (error) return `Submission error! ${error.message}`;
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    const {name, value} = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    })
+  }
 
-  //useEffect(() => {
-  //}, [])
-
+  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    console.log("Handled: ", formData.name);
+    addProduct({variables: { name: formData.name}})
+  }
 
   return (
     <div>
       <form
-        onSubmit={e => {
-          e.preventDefault();
-          addProduct({ variables: { name: "abc" } });
-        }}
+        onSubmit={handleSubmit}
       >
+        <input type="text" id="name" name="name" value={formData.name}  onChange={handleInputChange}></input>
         <button type="submit">Add Todo</button>
       </form>
     </div>

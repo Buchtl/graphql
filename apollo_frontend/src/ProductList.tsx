@@ -37,8 +37,10 @@ function ProductList() {
     <div className="App-body">
       <h2>Products</h2>
       <table>
-        <tr><th>ID</th><th>Name</th></tr>
-        {products.map(product => <tr><td>{product.id}</td><td>{product.name}</td></tr>)}
+        <tbody>
+          <tr><th>ID</th><th>Name</th></tr>
+          {products.map(product => <tr><td>{product.id}</td><td>{product.name}</td></tr>)}
+        </tbody>
       </table>
     </div>
   );
