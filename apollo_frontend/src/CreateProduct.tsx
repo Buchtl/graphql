@@ -2,6 +2,7 @@ import './App.css';
 import { useState, ChangeEvent } from "react";
 import { gql, useMutation } from '@apollo/client';
 import { FormEvent } from 'react';
+import { Button, TextField, Input, Box, Grid } from '@mui/material';
 
 const ADD_PRODUCT = gql`
   mutation addProduct($name: String) {
@@ -24,10 +25,10 @@ function CreateProduct() {
     },
   });
 
-  const [formData, setFormData] = useState<FormData>({name: ''})
+  const [formData, setFormData] = useState<FormData>({ name: '' })
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    const {name, value} = e.target;
+    const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
@@ -37,18 +38,24 @@ function CreateProduct() {
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     console.log("Handled: ", formData.name);
-    addProduct({variables: { name: formData.name}})
+    addProduct({ variables: { name: formData.name } })
   }
 
   return (
     <div>
-      <form
-        onSubmit={handleSubmit}
-      >
-        <input type="text" id="name" name="name" value={formData.name}  onChange={handleInputChange}></input>
-        <button type="submit">Add Todo</button>
-      </form>
-    </div>
+      <Box className='MyBox'>
+        <form onSubmit={handleSubmit}>
+          <Grid container spacing={2}>
+            <Grid item xs={2}>
+              <TextField variant="standard" type="text" id="name" name="name" value={formData.name} onChange={handleInputChange}></TextField>
+            </Grid>
+            <Grid item xs={2}>
+              <Button type="submit" variant="contained" color="success" >Add Product</Button>
+            </Grid>
+          </Grid>
+        </form>
+      </Box>
+    </div >
   );
 }
 

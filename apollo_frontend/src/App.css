@@ -39,6 +39,15 @@
 }
 
 
+.MyBox {
+  margin-block: 3px;
+  margin-left: 3px;
+}
+
+.MyInputBox {
+  margin-block-end: 10;
+}
+
 .App-link {
   color: #61dafb;
 }

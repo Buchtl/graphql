@@ -1,6 +1,7 @@
 import './App.css';
 import { useState, useEffect } from "react";
 import { ApolloClient, InMemoryCache, gql, useSubscription } from '@apollo/client';
+import { List, ListItem, ListItemText, Paper } from '@mui/material';
 
 
 interface Product {
@@ -54,9 +55,14 @@ function ProductDynamicList() {
       <table>
         <tbody>
           <tr><th>ID</th><th>Name</th></tr>
-          {products.map(product => <tr><td>{product.id}</td><td>{product.name}</td></tr>)}
+          {products.map(product => <tr><td>{product.id}</td><td>{product.name}</td></tr>).reverse()}
         </tbody>
       </table>
+      <Paper style={{ maxHeight: 200, overflow: 'auto' }}>
+        <List>
+          {products.map(product => <ListItem>{product.id}{product.name}</ListItem>)}
+        </List>
+      </Paper>
     </div>
   );
 }
