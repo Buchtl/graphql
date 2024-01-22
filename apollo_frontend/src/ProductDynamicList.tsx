@@ -45,7 +45,6 @@ function ProductDynamicList() {
 
   const prodQuery: ProductQuery = useQuery(PRODUCT_QUERY)
 
-
   const client = new ApolloClient({
     uri: 'http://localhost:8080/graphql',
     cache: new InMemoryCache()
@@ -55,7 +54,7 @@ function ProductDynamicList() {
     if (prodQuery.data) {
       setProducts(prodQuery.data.allProducts)
     }
-  }, [])
+  }, [prodQuery.data])
 
   useEffect(() => {
     if (prodSubscr.data) {
