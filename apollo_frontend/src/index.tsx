@@ -1,16 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-import HelloWorld from './HelloWorld';
 import CreateProduct from './CreateProduct';
-import ProductList from './ProductList';
 import { ApolloClient, ApolloProvider, InMemoryCache, HttpLink, split } from '@apollo/client';
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { createClient } from 'graphql-ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 import ProductDynamicList from './ProductDynamicList';
+import Layout from './components/Layout/Layout';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -57,9 +55,10 @@ const client = new ApolloClient({
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <HelloWorld />
-      <CreateProduct />
-      <ProductDynamicList/>
+      <Layout>
+        <CreateProduct />
+        <ProductDynamicList />
+      </Layout>
     </ApolloProvider>
   </React.StrictMode>
 );
