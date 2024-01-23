@@ -1,7 +1,6 @@
-import './App.css';
+import './App/App.css';
 import { useState, useEffect } from "react";
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
-import { Button, TextField, Grid, Box } from '@mui/material';
 
 interface Product {
   id: string;

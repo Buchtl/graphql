@@ -1,4 +1,4 @@
-import './App.css';
+import './CreateProduct.css';
 import { useState, ChangeEvent } from "react";
 import { gql, useMutation } from '@apollo/client';
 import { FormEvent } from 'react';
@@ -45,11 +45,11 @@ function CreateProduct() {
     <div>
       <Box className='MyBox'>
         <form onSubmit={handleSubmit}>
-          <Grid container spacing={2}>
-            <Grid item xs={2}>
+          <Grid container spacing={1}>
+            <Grid item xs={6}>
               <TextField variant="standard" type="text" id="name" name="name" value={formData.name} onChange={handleInputChange}></TextField>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={4}>
               <Button type="submit" variant="contained" color="success" >Add Product</Button>
             </Grid>
           </Grid>

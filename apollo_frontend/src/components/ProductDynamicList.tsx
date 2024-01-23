@@ -1,4 +1,4 @@
-import './App.css';
+import './App/App.css';
 import { useState, useEffect } from "react";
 import { ApolloClient, InMemoryCache, gql, useQuery, useSubscription } from '@apollo/client';
 import { List, ListItem, ListItemText, Paper, Grid } from '@mui/material';

@@ -2,13 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import CreateProduct from './CreateProduct';
+import CreateProduct from './components/CreateProduct/CreateProduct';
 import { ApolloClient, ApolloProvider, InMemoryCache, HttpLink, split } from '@apollo/client';
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { createClient } from 'graphql-ws';
 import { getMainDefinition } from '@apollo/client/utilities';
-import ProductDynamicList from './ProductDynamicList';
+import ProductDynamicList from './components/ProductDynamicList';
 import Layout from './components/Layout/Layout';
+import Sidebar from './components/Sidebar/Sidebar';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -56,8 +57,11 @@ root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <Layout>
-        <CreateProduct />
-        <ProductDynamicList />
+        <div className="layout-container">
+          <Sidebar />
+          <CreateProduct />
+          <ProductDynamicList />
+        </div>
       </Layout>
     </ApolloProvider>
   </React.StrictMode>
