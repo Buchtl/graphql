@@ -10,6 +10,7 @@ import { getMainDefinition } from '@apollo/client/utilities';
 import ProductDynamicList from './components/ProductDynamicList';
 import Layout from './components/Layout/Layout';
 import Sidebar from './components/Sidebar/Sidebar';
+import ProSidebar from './components/ProSidebar/ProSidebar';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -58,7 +59,7 @@ root.render(
     <ApolloProvider client={client}>
       <Layout>
         <div className="layout-container">
-          <Sidebar />
+          <ProSidebar />
           <CreateProduct />
           <ProductDynamicList />
         </div>
